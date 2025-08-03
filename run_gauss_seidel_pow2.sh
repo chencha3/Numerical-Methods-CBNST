@@ -5,7 +5,7 @@ EXE=Gauss_Seidel
 SRC=Gauss_Seidel_C++.cpp
 
 # Compile the program if not already compiled
-g++ -O3 -o $EXE $SRC || { echo "Compilation failed"; exit 1; }
+c++ -O3 -o $EXE $SRC || { echo "Compilation failed"; exit 1; }
 
 size=2
 while [ $size -le 500 ]
