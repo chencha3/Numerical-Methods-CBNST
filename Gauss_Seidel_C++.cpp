@@ -2,6 +2,7 @@
 
 #include <unistd.h>
 
+#include <chrono>
 #include <cmath>
 #include <iomanip>
 #include <iostream>
@@ -52,6 +53,17 @@ void findValues(vector<vector<float>> a, int maxIterations, float values_old[],
   // This loop is added for Gauss seidel ( not present in Jacobi method)
   for (int i = 0; i < n; i++)
     values_new[i] = 0;
+
+  for (iteration = 1; iteration <= 8; iteration++) {
+    for (i = 0; i < n; i++) {
+      sum = 0;
+      for (j = 0; j < n; j++) {
+        if (i != j)
+          sum += a[i][j] * values_new[j];
+      }
+      values_new[i] = (a[i][n] - sum) / a[i][i];
+    }
+  }
 
   for (iteration = 1; iteration <= maxIterations; iteration++) {
     for (i = 0; i < n; i++) {
@@ -118,26 +130,42 @@ void generateMatrix(vector<vector<float>> &a, int n) {
 int main(int argc, char *argv[]) {
   int i, j, k, x, y, maxIterations, n;
   float ratio;
+  bool gen = false;
   if (argc < 2) {
-    cout << "Usage: " << argv[0] << " <n> [maxIterations]\n";
+    cout << "Usage: " << argv[0] << " <n> [random] [maxIterations]\n";
     return 1;
   }
   n = atoi(argv[1]);
   if (argc >= 3)
-    maxIterations = atoi(argv[2]);
+    gen = atoi(argv[2]);
+  else
+    gen = true;
+
+  if (argc >= 4)
+    maxIterations = atoi(argv[3]);
   else
     maxIterations = 10000;
   vector<vector<float>> a(500, vector<float>(501));
   float values[500];
 
-  generateMatrix(a, n);
+  if (gen) {
+    cout << "Generating a random matrix.\n";
+    generateMatrix(a, n);
+  } else {
+    cout << "Reading a matrix.\n";
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n + 1; j++)
+        cin >> a[i][j];
+    }
+  }
+
   cout << "\nThe Augmented Matrix (" << n << "x" << n << ")\n";
   // Print the augmented matrix with aligned columns
   cout << fixed;
   cout.precision(5);
   int width = 12;
   for (int i = 0; i < n; i++) {
-    for (int j = 0; j < n; j++) {
+    for (int j = 0; j < n + 1; j++) {
       cout << setw(width) << a[i][j];
     }
     cout << endl;
@@ -150,6 +178,10 @@ int main(int argc, char *argv[]) {
   // cout << "\nGauss Seidel Method is applicable\n\n";
   for (int i = 0; i < n; i++)
     values[i] = 0;
+  auto t1 = chrono::high_resolution_clock::now();
   findValues(a, maxIterations, values, n);
+  auto t2 = chrono::high_resolution_clock::now();
+  auto duration = chrono::duration_cast<chrono::microseconds>(t2 - t1).count();
+  cout << "Time taken: " << duration << " us\n";
   return 0;
 }
