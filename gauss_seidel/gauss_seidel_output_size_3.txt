@@ -4,32 +4,27 @@ The Augmented Matrix (3x3)
     -0.05913     4.67299    -0.28381
     -0.35577     0.91745     4.39450
 Tot number of iterations: 7
-Copilot-GPT-4.1 Predicted Iterations in range: [5, 10]
 
 The Augmented Matrix (3x3)
      4.92543    -0.63442     0.35112
      0.06928     5.36521     0.26897
     -0.97372     0.74871     7.28734
 Tot number of iterations: 10001
-Copilot-GPT-4.1 Predicted Iterations in range: [10000, 10001]
 
 The Augmented Matrix (3x3)
      2.50666     0.37424     0.12497
     -0.86529     6.64853    -0.65146
     -0.71105    -0.08064     6.64913
 Tot number of iterations: 8
-Copilot-GPT-4.1 Predicted Iterations in range: [6, 12]
 
 The Augmented Matrix (3x3)
      6.86809     0.66376    -0.69455
     -0.72537     4.98823     0.91434
      0.68689    -0.23968     6.76540
 Tot number of iterations: 10001
-Copilot-GPT-4.1 Predicted Iterations in range: [10000, 10001]
 
 The Augmented Matrix (3x3)
      4.57687    -0.05110    -0.51789
      0.40973     4.93904     0.47812
      0.08236     0.59495     6.47873
 Tot number of iterations: 5
-Copilot-GPT-4.1 Predicted Iterations in range: [4, 8]
