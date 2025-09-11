@@ -11,6 +11,9 @@ from openai import OpenAI
 API_KEY = os.getenv("OPENAI_API_KEY")
 Model = "gpt-4.1"
 
+def natural_key(s):
+    return [int(t) if t.isdigit() else t.lower() for t in re.split(r'(\d+)', s)]
+
 class ChatGPT: 
     def __init__(self, api_key: str, model: str = "gpt-4o", temperature: float = 0.0):
         self.client = OpenAI(api_key=api_key)
@@ -313,6 +316,8 @@ class MatrixParser:
             return
         
         txt_files = [f for f in os.listdir(self.folder_path) if f.endswith('.txt') and 'predicted' not in f]
+        txt_files = sorted(txt_files, key=natural_key)
+
         
         if not txt_files:
             print(f"No .txt files found in '{self.folder_path}'.")
